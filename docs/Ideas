@@ -1,0 +1,14 @@
+#CS411 Project Ideas
+
+Restaurant and Transportation Business Levels
+  Use "populartimes" API to get real-time data on how many people are at a location.
+  Also use a maps/business finder API to search for venues.
+  
+Snow Day Prediction Calculator
+  Multiple Weather API to forcast if school will close due to snow.
+  
+Tradeing App for College Students
+  Payment API
+  Market item lookup for comparable prices
+  Item lookup in stores (or amazon) if not availible from studnets.
+  Location API to find items near you or at a specific location.
