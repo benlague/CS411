@@ -4,8 +4,20 @@ Restaurant and Transportation Business Levels
   Use "populartimes" API to get real-time data on how many people are at a location.
   Also use a maps/business finder API to search for venues.
   
-Snow Day Prediction Calculator
-  Multiple Weather API to forcast if school will close due to snow.
+Snow Day Forecaster
+  Create a web application which allows users to predict wether their school will 
+  close due to snow. This is a common phenomenon accross New England where students 
+  get very excited about the prospect of school getting cancelled and go to all kinds 
+  of platforms to deliberate, debate and gain insite as to what their schools decsision will be.
+  Students generate so much excitement around snow days that application have been created 
+  to "predict" how likely a students school will be closed. Unfortinatly these applications 
+  are either paid or just not good. So there is an oppurtinuity to get it right and give 
+  students a free and reliable tool which they can (almost) depend on when deciding if they 
+  should do their homework the night before a snow storm or not. 
+  
+  The web application would utilize a Weather data API to collect relevent weather data for 
+  the prediction model, as well as a local school listing API to generate snow day prediction 
+  for a spoecific school.
   
 Tradeing App for College Students
   Payment API
