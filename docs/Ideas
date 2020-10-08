@@ -1,8 +1,19 @@
 #CS411 Project Ideas
 
 Restaurant and Transportation Business Levels
-  Use "populartimes" API to get real-time data on how many people are at a location.
-  Also use a maps/business finder API to search for venues.
+  In our COVID-19 situation, it is essential to know if the venues you're attending will have a safe level of occupants. 
+  In most situations, you will not be able to know how many people will be at a specific location. #Our app will change this.
+  After attending the venue, the app user will be able to leave a COVID safety rating. The user will be able to rate how health concious the venue is. 
+  If possible, we will attempt to pull up the fire safety max occupancy of a building and create a maximum COVID occupancy. 
+  We will compare the traffic at the venue to its max COVID occupancy and inform the user if it is safe to go to. 
+  
+  We will use the "populartimes" API to get real-time and predicted data on how many people are at a location.
+    BestTime.app
+    https://github.com/m-wrzr/populartimes
+
+  To locate businesses and venues, we will use the Yelp Business API.
+    https://www.yelp.com/developers
+  
   
 Snow Day Forecaster
   Create a web application which allows users to predict wether their school will 
@@ -19,8 +30,8 @@ Snow Day Forecaster
   the prediction model, as well as a local school listing API to generate snow day prediction 
   for a spoecific school.
   
-Tradeing App for College Students
-  Payment API
-  Market item lookup for comparable prices
-  Item lookup in stores (or amazon) if not availible from studnets.
-  Location API to find items near you or at a specific location.
+  Weather API:
+    https://www.climacell.co/weather-api/
+   
+  Local School Dataset:
+    https://code.org/learn/find-school/json
