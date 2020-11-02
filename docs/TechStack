@@ -1,0 +1,27 @@
+Option 1: (Winner)
+    Back-end: Flask (Python)
+    Front-end: VueJS (JavaScript)
+    Database: SQL (Relational)
+    Explanation: 
+        Because of our team's prior experience working with Python, we felt comfortable selecting a Python-based backend and due to the simplicity of Flask
+        the choice was pretty easy. Flask is pretty lightweight web framework, allowing us to manipulate it a lot easily. For the Front-end the choice was 
+        going to JavaScript-based and we decided on Vue, also because of the lightweight nature of this framework, and because of its growing popularity, 
+        we decided it would also be a good learning experience to develop an application with it. Vue serving as a mix between React and Angular also drove this decision. 
+        In terms of our database selection, we decided that a relational database type made sense for our application especially because we would have a few specific tables 
+        that are related to one another, such as our restaurants and reviews. 
+
+Option 2: 
+    Back-end: NodeJS (JavaScript-based)
+    Front-end: ReactJS
+    Database: Mongo (Non-relational)
+    Explanation: 
+        We also felt that a tech stack involving just JavaScript would make for a clean application and easy to use, especially if our APIs are returning JSON data, it wouldn't require
+        any extra overhead to deal with the data. NodeJS / Express is the popular go to for server-side JavaScript applications. Because of the abundance of resources, we felt that this would
+        be an easy tech stack to learn even though most of our development experience is in Python. For the front-end we also considered the popular JavaScript frameworks React and Vue.
+        With React being the most popular front-end JS framework, we considered that it would be a good technology for us to learn and also the amount of resources dedicated to learning React
+        would help us even if we haven't had prior experience. In terms of our database, we considered the other option of a non-relational scheme, and because mongoDB works with JSON objects, 
+        this would be a wise decision for this tech stack. This would allow us to quickly save and persist the data that is returned from our API without having to worry about altering the data format
+        in order to store it. 
+
+
+Decision: Chose Option 1 because of our previous Python experience and also because the nature of our application 
