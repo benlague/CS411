@@ -1,6 +1,9 @@
 from flask import Flask
+import yaml
+import os
 
 app = Flask(__name__)
+creds = yaml.safe_load(open("creds.yaml", "r"))
 
 @app.route("/")
 def index(): 
