@@ -1,4 +1,5 @@
-# PROTOTYPE
+# PROTOTYPE 
+# Team number 12
 
 ## Run and Develop Vue Instructions:
 To run the application, first follow the steps below to setup the project on your local machine.
