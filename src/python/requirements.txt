@@ -1,0 +1,7 @@
+Flask==1.1.2
+flask-restful==0.3.8
+sentry-sdk==0.14.4
+marshmallow==3.9.0
+Flask-SQLAlchemy==2.4.4
+Flask-Migrate==2.5.3
+marshmallow-sqlalchemy==0.24.0
