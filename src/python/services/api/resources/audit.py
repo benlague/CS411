@@ -12,9 +12,6 @@ class AuditAPI(BaseResource):
         self.audit_entry_repo: SQLAlchemyRepository = kwargs['audit_entry_repo']   # noqa: E501
 
     def get(self):
-
-        AuditLog.log_event(actor="Dan", activity="start server", target="api")
-
         params = self.validate_request(schema=AuditGetSchema, kwargs=request.values)  # noqa: E501
         filters = []
         if "start" in params:
