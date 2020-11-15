@@ -75,3 +75,13 @@ make integration-tests-py
 ```
 ### Frontend (JavaScript)
 TBD
+
+## Continuous Integration
+Using Github Actions https://docs.github.com/en/free-pro-team@latest/actions to automate CI workflows.
+CI is run on every pull request made against the `main` branch.
+For now the CI includes the following steps:
+1. lint
+2. unit test
+3. integration test
+
+See `.github/workflows/ci.yml` for the definition of the CI workflow being run
