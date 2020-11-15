@@ -16,7 +16,7 @@ For VS Code users its straightforward, this project includes the setup configura
 Go through the directions here to setup your local dev container:
 https://code.visualstudio.com/docs/remote/containers
 
-### 2. Install dependencies
+### 3. Install dependencies
 #### Backend (python) dependencies
 ```bash
 make install-deps-py
@@ -29,17 +29,17 @@ make install-deps-js
 ```bash
 make install-deps
 ```
-### 3. Initialize local database
+### 4. Initialize local database
 When developing locally a sqlite database is used.
 ```bash
 make db-upgrade
 ```
 The above make goal will initialize a sqlite database and apply migrations in the `migrations/versions` directory.
-### 4. Run the backend API server
+### 5. Run the backend API server
 ```bash
 make run-server
 ```
-### 5. Run the frontend server
+### 6. Run the frontend server
 ```bash
 make run-client
 ```
