@@ -7,3 +7,11 @@ RUN apt-get update && apt-get install -y curl wget vim build-essential \
 RUN pip install --upgrade pip
 
 RUN npm install -g @vue/cli
+
+RUN wget http://download.redis.io/redis-stable.tar.gz && \
+    tar xvzf redis-stable.tar.gz && \
+    cd redis-stable && \
+    make && \
+    make install
+
+RUN apt-get install libpq-dev

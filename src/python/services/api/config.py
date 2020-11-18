@@ -10,12 +10,16 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'database.db')  # noqa: E501
+    # Uncomment this line if youd like to use sqlite instead of postgres
+    # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'database.db')  # noqa: E501
+    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://postgres:123@postgres:5432/test"  # noqa: E501
 
 
 class TestingConfig(Config):
     DEBUG = True
     TESTING = True
+    # Uncomment this line if youd like to use sqlite instead of postgres
+    # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'database.db')  # noqa: E501
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'database.db')  # noqa: E501
 
 

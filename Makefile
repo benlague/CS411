@@ -1,3 +1,6 @@
+ENVIRONMENT ?= dev
+FLASK_DEBUG ?= 1
+
 lint-py:
 	flake8 src/python
 
@@ -26,8 +29,8 @@ install-deps-js:
 install-deps: install-deps-py install-deps-js
 
 run-server:
-	export ENVIRONMENT=dev && \
-	export FLASK_DEBUG=1 && \
+	export ENVIRONMENT=${ENVIRONMENT}  && \
+	export FLASK_DEBUG=${FLASK_DEBUG} && \
 	export FLASK_APP="src/python/services/api/app:app" && \
 	flask run -h 0.0.0.0 -p 8001
 
@@ -35,14 +38,19 @@ run-client:
 	npm run serve --prefix src/javascript/web-app
 
 db-migrate:
-	export ENVIRONMENT=dev && \
+	export ENVIRONMENT=${ENVIRONMENT} && \
 	export FLASK_APP="src/python/services/api/app:app" && \
 	flask db migrate -m "$(MESSAGE)"
 
 db-upgrade:
-	export ENVIRONMENT=dev && \
+	export ENVIRONMENT=${ENVIRONMENT}  && \
 	export FLASK_APP="src/python/services/api/app:app" && \
 	flask db upgrade
+
+db-downgrade:
+	export ENVIRONMENT=${ENVIRONMENT}  && \
+	export FLASK_APP="src/python/services/api/app:app" && \
+	flask db downgrade
 
 unit-tests-py:
 	pytest src/python/tests/unit

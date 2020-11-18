@@ -1,6 +1,5 @@
 from .common.base import BaseResource
 from ..libs.respository import SQLAlchemyRepository
-from ..libs.audit import AuditLog
 from ..models.models import AuditEntry
 from ..schemas.audit import AuditGetSchema, AuditEntrySchema
 

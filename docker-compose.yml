@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  dev-container:
+    build:
+      context: .
+      dockerfile: devcontainer.Dockerfile
+    ports:
+      - "8001:8001"
+      - "5000:5000"
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - redis
+  postgres:
+    image: postgres:11.9
+    environment:
+      POSTGRES_PASSWORD: 123
+      POSTGRES_USER: postgres
+      POSTGRES_DB: test
+    ports:
+      - "5432:5432"
+  redis:
+    image: bitnami/redis:6.0
+    environment:
+      REDIS_PASSWORD: 123
+    ports:
+      - "6379:6379"

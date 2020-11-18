@@ -3,7 +3,7 @@ from .common.mixins import AuditMixin
 
 
 class AuditEntry(db.Model, AuditMixin):
-    __tablename__ = "audit"
+    __tablename__ = "audit_entry"
     id = db.Column(db.Integer, primary_key=True)
     actor = db.Column(db.Text, nullable=False)
     ip = db.Column(db.Text)
