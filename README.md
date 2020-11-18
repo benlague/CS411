@@ -27,12 +27,11 @@ make install-deps-js
 ```bash
 make install-deps
 ```
-### 4. Initialize local database
-When developing locally a sqlite database is used.
+### 4. Initialize database (apply migrations)
 ```bash
 make db-upgrade
 ```
-The above make goal will initialize a sqlite database and apply migrations in the `migrations/versions` directory.
+The above make goal will create all the tables defined in the `migrations/versions` folder.
 ### 5. Run the backend API server
 ```bash
 make run-server
