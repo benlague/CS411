@@ -4,10 +4,8 @@
 ```bash
 git clone git@github.com:benlague/CS411.git
 ```
-### 2. (Optional) Connect IDE to development docker container
+### 2. Connect IDE to development docker container
 Developing in a reproducable development environment is very important especially when working in large teams. Very often what happens is teamates have different operatin systems with different versions of software installed and configured in different ways and this leads to the annyoing "it works on my machine but not yours" problem.
-
-The project includes a `Dockerfile` in the root directory `devcontainer.Dockerfile`which defines the operating system and versions of software used for this project. 
 
 Most IDE's support hooking up to a local docker container as the development environment.
 
