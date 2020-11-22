@@ -1,8 +1,8 @@
-from flask.helpers import make_response
 from .common.base import BaseResource
 from ..schemas.healthcheck import HealthCheckGetSchema
 
 from flask import request, jsonify
+from flask.helpers import make_response
 
 
 class HealthCheckAPI(BaseResource):
