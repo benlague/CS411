@@ -21,7 +21,7 @@ class LoginAPI(BaseResource):
         self.user_repo = create_repo(User)
 
     def post(self):
-        params = self.validate_request(schema=LoginSchema, kwargs=request.json)  # noqa: E501
+        params = self.validate_request(schema=LoginSchema, kwargs=request.form)  # noqa: E501
         email = params.get('email')
         password = params.get('password')
         remember_me = params.get('remember_me')
@@ -47,7 +47,7 @@ class RegisterAPI(BaseResource):
         self.user_repo = create_repo(User)
 
     def post(self):
-        params = self.validate_request(schema=RegisterSchema, kwargs=request.json)  # noqa: E501
+        params = self.validate_request(schema=RegisterSchema, kwargs=request.form)  # noqa: E501
         email = params.get('email')
         password = params.get('password')
         first_name = params.get('first_name')
@@ -88,7 +88,7 @@ class UserAPI(BaseResource):
         return make_response(jsonify(user_data), 200)
 
     def post(self):
-        params = self.validate_request(schema=UserUpdateSchema, kwargs=request.json)  # noqa: E501
+        params = self.validate_request(schema=UserUpdateSchema, kwargs=request.form)  # noqa: E501
         first_name = params.get('first_name')
         last_name = params.get('last_name')
 
