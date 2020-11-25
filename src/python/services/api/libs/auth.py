@@ -8,9 +8,19 @@ from flask_login import LoginManager, current_user
 
 
 login_manager = LoginManager()
-oath = OAuth()
+oauth = OAuth()
 
 user_repo = create_repo(User)
+
+
+def register_providers():
+    oauth.register(
+        name='github',
+        access_token_url='https://github.com/login/oauth/access_token',
+        authorize_url='https://github.com/login/oauth/authorize',
+        api_base_url='https://api.github.com/',
+        client_kwargs={'scope': 'read:user user:email'},
+    )
 
 
 @login_manager.user_loader

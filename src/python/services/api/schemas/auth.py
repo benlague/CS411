@@ -1,7 +1,7 @@
 from .common.base import BaseSchema
 from ..models.models import User
 
-from marshmallow import fields, validate
+from marshmallow import fields
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
 
@@ -36,18 +36,6 @@ class RegisterSchema(BaseSchema):
     password = fields.Str(required=True)
     first_name = fields.Str(required=True)
     last_name = fields.Str(required=True)
-
-
-class OAuthLoginSchema(BaseSchema):
-    """ /api/oauth/login - POST
-
-    Parameters:
-     - provider (str)
-    """
-    provider = fields.Str(
-        required=True,
-        validate=validate.OneOf(['facebook', 'twitter'])
-    )
 
 
 class UserSchema(SQLAlchemyAutoSchema):

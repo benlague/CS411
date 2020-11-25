@@ -1,6 +1,7 @@
 from flask.helpers import make_response
 from .common.base import BaseResource
 from ..libs.audit import log_event
+from ..libs.auth import oauth
 from ..libs.respository import create_repo
 from ..models.models import User
 from ..schemas.auth import (
@@ -11,7 +12,7 @@ from ..schemas.auth import (
 )
 
 from flask import request, jsonify
-from flask_restful import abort
+from flask_restful import abort, url_for
 from flask_login import login_user, logout_user, login_required, current_user
 
 
@@ -105,3 +106,48 @@ class UserAPI(BaseResource):
         logout_user()
 
         return 204
+
+
+class GithubOAuthLoginAPI(BaseResource):
+
+    def get(self):
+        authorize_endpoint = url_for('githuboauthauthorizeapi', _external=True)
+        return oauth.github.authorize_redirect(authorize_endpoint)
+
+
+class GithubOAuthAuthorizeAPI(BaseResource):
+    def __init__(self):
+        self.user_repo = create_repo(User)
+
+    def get(self):
+        oauth.github.authorize_access_token()
+
+        # Get github user first and last name
+        profile = oauth.github.get('user').json()
+        first_name, last_name = profile['name'].split()
+
+        # Get unique github user id
+        user_id = profile['id']
+
+        # Get github user primary email
+        emails = oauth.github.get('user/emails').json()
+        email = self.find_primary_email(emails=emails)
+
+        # Create user in database if doesnt exist
+        user = self.user_repo.get(user_id)
+        if user is None:
+            user = User(
+                id=user_id,
+                email=email,
+                first_name=first_name,
+                last_name=last_name
+            )
+            self.user_repo.save(user, commit=True)
+
+        login_user(user)
+
+    @staticmethod
+    def find_primary_email(emails):
+        for user_email in emails:
+            if user_email['primary'] == "True":
+                return user_email['email']
