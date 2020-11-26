@@ -6,6 +6,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class Config:
     DEBUG = False
     TESTING = False
+    SECRET_KEY = os.environ.get('SECRET_KEY', '123')
 
 
 class DevelopmentConfig(Config):
@@ -20,11 +21,11 @@ class TestingConfig(Config):
     TESTING = True
     # Uncomment this line if youd like to use sqlite instead of postgres
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'database.db')  # noqa: E501
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'database.db')  # noqa: E501
+    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://postgres:123@postgres:5432/test"  # noqa: E501
 
 
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'database.db')  # noqa: E501
+    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://postgres:123@postgres:5432/test"  # noqa: E501
 
 
 config_by_environment = dict(

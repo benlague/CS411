@@ -3,6 +3,7 @@
 __pycache__
 node_modules
 database.db
+.pytest*
 
 .DS_Store
 node_modules

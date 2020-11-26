@@ -1,13 +1,23 @@
 from .config import get_config
-from .libs.audit import AuditLog
-from .libs.respository import SQLAlchemyRepository
-from .models import models
+from .libs.auth import login_manager, oauth, on_user_login, register_providers
+from .models import models  # noqa: F401
 from .models.common.db import db
-from .resources import HealthCheckAPI, AuditAPI
+from .resources import (
+    AuditAPI,
+    HealthCheckAPI,
+    LoginAPI,
+    RegisterAPI,
+    LogoutAPI,
+    UserAPI,
+    GithubOAuthLoginAPI,
+    GithubOAuthAuthorizeAPI
+)
 
 from flask import Flask
+from flask_login.signals import user_logged_in
 from flask_restful import Api
 from flask_migrate import Migrate as DBMigrate
+
 
 # Initialize flask application
 app = Flask(__name__)
@@ -15,18 +25,31 @@ app = Flask(__name__)
 # Configure flask application
 app.config.from_object(get_config())
 
-# Initialize flask integrations
+# Initialize flask api
 api = Api(app, prefix='/api')
+
+# Initialize sqlalchemy extention
 db.init_app(app)
+
+# Initialize alembic extention
 db_migrate = DBMigrate(app, db)
 
-# Initialize database repositories (tables)
-audit_entry_repo = SQLAlchemyRepository(db=db, cls=models.AuditEntry)
+# Initalize login manager extention
+login_manager.init_app(app)
 
-# Misc setup
-audit_log = AuditLog(audit_entry_repo)
-AuditLog.instance = audit_log
+# Initialize oauth extention
+oauth.init_app(app)
+register_providers()
+
+# Register signal subscribers
+user_logged_in.connect(on_user_login, app)
 
 # Attach API resources to routes
-api.add_resource(AuditAPI, '/auditlog', resource_class_kwargs={'audit_entry_repo': audit_entry_repo})  # noqa: E501
+api.add_resource(AuditAPI, '/auditlog')
 api.add_resource(HealthCheckAPI, '/healthcheck')
+api.add_resource(LoginAPI, '/auth/login')
+api.add_resource(RegisterAPI, '/auth/register')
+api.add_resource(LogoutAPI, '/auth/logout')
+api.add_resource(UserAPI, "/auth/user")
+api.add_resource(GithubOAuthLoginAPI, '/auth/oauth/github')
+api.add_resource(GithubOAuthAuthorizeAPI, '/auth/oauth/github/authorize')

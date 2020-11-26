@@ -1,3 +1,6 @@
+from ..models.common.db import db
+
+
 class SQLAlchemyRepository():
     def __init__(self, db, cls):
         self.db = db
@@ -30,3 +33,7 @@ class SQLAlchemyRepository():
 
     def commit(self):
         self.db.session.commit()
+
+
+def create_repo(model) -> SQLAlchemyRepository:
+    return SQLAlchemyRepository(db, model)
