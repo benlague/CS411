@@ -1,5 +1,5 @@
 from .common.base import BaseResource
-from ..libs.respository import SQLAlchemyRepository
+from ..libs.respository import create_repo
 from ..models.models import AuditEntry
 from ..schemas.audit import AuditGetSchema, AuditEntrySchema
 
@@ -7,8 +7,8 @@ from flask import request, jsonify, make_response
 
 
 class AuditAPI(BaseResource):
-    def __init__(self, *args, **kwargs):
-        self.audit_entry_repo: SQLAlchemyRepository = kwargs['audit_entry_repo']   # noqa: E501
+    def __init__(self):
+        self.audit_entry_repo = create_repo(AuditEntry)
 
     def get(self):
         params = self.validate_request(schema=AuditGetSchema, kwargs=request.values)  # noqa: E501
