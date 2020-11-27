@@ -1,9 +1,8 @@
 <template>
-  <div class = "main-container">
+  <div class = "login-container">
       <h1>Login</h1>
       <v-form
       ref="form"
-      v-model="valid"
       lazy-validation
     >
       <v-text-field
@@ -62,7 +61,7 @@ export default {
 </script>
 
 <style>
-  .main-container {
+  .login-container {
     width: 50%; 
     margin-top: 10%;
     margin-left: 25%;
