@@ -21,7 +21,7 @@
       ></v-text-field>
 
       <v-checkbox
-        v-model="checkbox"
+        v-model="remember_me"
         :rules="[v => !!v || 'You must agree to continue!']"
         label="Do you want us to remember you?"
         required
@@ -30,7 +30,7 @@
       <v-btn
         color="success"
         class="mr-4"
-        @click="validate"
+        @click="login"
       >
         Login
       </v-btn>
@@ -40,9 +40,24 @@
 </template>
 
 <script>
-
+import api from "../api.js"
 export default {
   name: 'Login',
+  data: () => ({
+    email: "", 
+    password: "", 
+    remember_me: false 
+  }), 
+  methods: {
+    login() {
+      api.login(this.email, this.password, this.remember_me).then(resp => {
+        console.log(resp); 
+        console.log("successfully logged in!")
+      }).catch(err => {
+        console.log(err); 
+      })
+    } 
+  }
 }
 </script>
 
