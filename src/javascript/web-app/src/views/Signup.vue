@@ -7,34 +7,40 @@
     >
     <v-text-field
         v-model="first_name"
-        :rules="[v => !!v || 'First name is required']"
+        :rules="firstNameRules"
         label="First Name"
         required
       ></v-text-field>    
       <v-text-field
         v-model="last_name"
-        :rules="[v => !!v || 'Last name is required']"
+        :rules="lastNameRules"
         label="Last Name"
         required
       ></v-text-field>
       <v-text-field
         v-model="email"
-        :rules="[v => !!v || 'Email is required']"
+        :rules="emailRules"
         label="Email"
         required
       ></v-text-field>
 
       <v-text-field
         v-model="password"
-        :rules="[v => !!v || 'Password is required']"
         label="Password"
+        :append-icon="passwordVisible ? 'mdi-eye' : 'mdi-eye-off'"
+        :type="passwordVisible ? 'text' : 'password'"
+        @click:append="passwordVisible = !passwordVisible"
+        :rules="passwordRules"
         required
       ></v-text-field>
 
       <v-text-field
         v-model="confirmPassword"
-        :rules="[v => !!v || 'Confirmed password is required!']"
         label="Confirm Password"
+        :append-icon="passwordVisible ? 'mdi-eye' : 'mdi-eye-off'"
+        :type="passwordVisible ? 'text' : 'password'"
+        :rules="confirmPasswordRules.concat(passwordConfirmationRule)"
+        @click:append="passwordVisible = !passwordVisible"
         required
       ></v-text-field>
 
@@ -59,15 +65,30 @@ export default {
     last_name: "", 
     email: "", 
     password: "", 
-    confirmPassword: ""
+    confirmPassword: "", 
+    passwordVisible: false,
+    firstNameRules: [v => !!v || "First name is required"], 
+    lastNameRules: [v => !!v || "Last name is required"], 
+    emailRules: [
+      v => !!v || "E-mail is required",
+      v => /.+@.+/.test(v) || "E-mail must be valid"
+      ], 
+    passwordRules: [v => !!v || "Password is required"], 
+    confirmPasswordRules: [v => !!v || "Confirmed Password is required"]
   }), 
   methods: {
     signup(){
-      api.signup(this.first_name, this.last_name, this.email, this.password, this.confirmPassword).then(() => {
+      api.signup(this.first_name, this.last_name, this.email, this.password).then(() => {
         console.log("sucessfully signed up"); 
       }).catch(err => { 
         console.log(err); 
       })
+    }
+  }, 
+  computed: {
+    passwordConfirmationRule() {
+      return () =>
+        this.password === this.confirmPassword || "Password must match";
     }
   }
 }

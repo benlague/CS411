@@ -7,21 +7,25 @@
     >
       <v-text-field
         v-model="email"
-        :rules="[v => !!v || 'Email is required']"
+        type="email"
+        :rules="emailRules"
         label="Email"
         required
       ></v-text-field>
 
       <v-text-field
         v-model="password"
-        :rules="[v => !!v || 'Password is required']"
+        :rules="passwordRules"
         label="Password"
         required
+        :append-icon="passwordVisible ? 'mdi-eye' : 'mdi-eye-off'"
+        :type="passwordVisible ? 'text' : 'password'"
+        @click:append="passwordVisible = !passwordVisible"
       ></v-text-field>
 
       <v-checkbox
         v-model="remember_me"
-        :rules="[v => !!v || 'You must agree to continue!']"
+        :rules="rememberRules"
         label="Do you want us to remember you?"
         required
       ></v-checkbox>
@@ -45,7 +49,16 @@ export default {
   data: () => ({
     email: "", 
     password: "", 
-    remember_me: false 
+    remember_me: false,
+    passwordVisible: false,
+    emailRules: [
+      v => !!v || "E-mail is required",
+      v => /.+@.+/.test(v) || "E-mail must be valid"
+      ], 
+    passwordRules: [v => !!v || "Password is required"],
+    rememberRules: [v => !!v || 'You must agree to continue!']
+
+
   }), 
   methods: {
     login() {
