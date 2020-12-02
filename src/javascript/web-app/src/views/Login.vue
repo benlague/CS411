@@ -3,7 +3,8 @@
       <h1>Login</h1>
       <v-form
       ref="form"
-      lazy-validation
+      v-model="valid"
+      @submit.prevent="login"
     >
       <v-text-field
         v-model="email"
@@ -33,11 +34,11 @@
       <v-btn
         color="success"
         class="mr-4"
+        :disabled="!valid"
         @click="login"
       >
         Login
       </v-btn>
-
     </v-form>
   </div>
 </template>
@@ -47,6 +48,7 @@ import api from "../api.js"
 export default {
   name: 'Login',
   data: () => ({
+    valid: true, 
     email: "", 
     password: "", 
     remember_me: false,
@@ -68,7 +70,7 @@ export default {
       }).catch(err => {
         console.log(err); 
       })
-    } 
+    }, 
   }
 }
 </script>
