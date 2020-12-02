@@ -3,7 +3,8 @@
       <h1>Signup</h1>
       <v-form
       ref="form"
-      lazy-validation
+      v-model="valid"
+      @submit.prevent="signup"
     >
     <v-text-field
         v-model="first_name"
@@ -48,6 +49,7 @@
         color="success"
         class="mr-4"
         @click="signup"
+        :disabled="!valid"
       >
         Signup
       </v-btn>
@@ -61,6 +63,7 @@ import api from "../api";
 export default {
   name: 'Signup',
   data: () => ({
+    valid: true, 
     first_name: "", 
     last_name: "", 
     email: "", 
