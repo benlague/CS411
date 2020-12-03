@@ -1,4 +1,3 @@
-import yaml
 import json
 import requests
 from flask import current_app
@@ -14,7 +13,8 @@ def yelp_search(name, location="Boston"):
     url = "https://api.yelp.com/v3/businesses/search"
 
     # Initialize Yelp api authorization headers
-    headers = {'Authorization': 'Bearer %s' % current_app.config['YELP_API_KEY']}
+    headers = {'Authorization': 'Bearer %s' %
+                                current_app.config['YELP_API_KEY']}
 
     # Initialize payload that pass to yelp api
     payload = {"term": name, "location": location}
