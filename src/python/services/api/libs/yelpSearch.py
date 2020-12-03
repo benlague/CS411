@@ -5,7 +5,8 @@ import requests
 
 # Send request to yelp API and return businesses result in an object
 # Location default to Boston
-# Return format see: https://www.yelp.com/developers/documentation/v3/business_search
+# Return format see:
+# https://www.yelp.com/developers/documentation/v3/business_search
 def yelp_search(name, location="Boston"):
 
     # Load Yelp api account

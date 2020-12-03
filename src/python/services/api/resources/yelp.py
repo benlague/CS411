@@ -11,9 +11,6 @@ class YelpAPI(BaseResource):
         # validate the requests parameters using schema
         params = self.validate_request(schema=YelpApiGetSchema, kwargs=request.values)  # noqa: E501
 
-        # create response object
-        respone = {"status": "ok"}
-
         # Request @name and @location from front end
         name = params.get("name")
         location = params.get("location")
