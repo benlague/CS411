@@ -43,6 +43,9 @@ const api = {
     search(name, location) {
         return new Promise((resolve, reject) => {
             axios.get("/api/yelp", {params: {name,location}}, defaultRequestConfig).then(() => {
+                resolve()
+        }).catch(err => {
+            reject(err); 
         })
     })
     }

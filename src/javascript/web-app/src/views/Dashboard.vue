@@ -34,6 +34,7 @@
 
 
 <script>
+import api from "../api.js"
 export default {
     name: "Dashboard",
     data: () => ({Location:"", BusinessName:""}),
