@@ -1,4 +1,4 @@
-from ..libs import yelpSearch
+from ..libs.yelpSearch import yelp_search
 from .common.base import BaseResource
 from ..schemas.yelp import YelpApiGetSchema
 
