@@ -39,7 +39,12 @@ const api = {
                 reject(err.response.data.message); 
             })
         })
+    },
+    search(name, location) {
+        return new Promise((resolve, reject) => {
+            axios.get("/api/yelp", {params: {name,location}}, defaultRequestConfig).then(() => {
+        })
+    })
     }
 }
-
 export default api; 
