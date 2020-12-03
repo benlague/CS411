@@ -1,13 +1,16 @@
-from datetime import datetime
-
 from .respository import create_repo
 from ..models.models import User
 
 from authlib.integrations.flask_client import OAuth
-from flask_login import LoginManager, current_user
+from flask_jwt_extended import (
+    JWTManager,
+    jwt_required,
+    create_access_token,
+    current_user
+)
 
 
-login_manager = LoginManager()
+jwt = JWTManager()
 oauth = OAuth()
 
 user_repo = create_repo(User)
@@ -23,12 +26,18 @@ def register_providers():
     )
 
 
-@login_manager.user_loader
+@jwt.user_loader_callback_loader
 def user_loader(user_id):
     user = user_repo.get(user_id)
     return user or None
 
 
-def on_user_login(app, **kwargs):
-    current_user.last_login = datetime.now()
-    user_repo.save(current_user, commit=True)
+def create_jwt_access_token(user: User):
+    return create_access_token(identity=user.id)
+
+
+def get_current_user():
+    return current_user
+
+
+login_required = jwt_required

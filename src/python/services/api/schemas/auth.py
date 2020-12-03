@@ -11,16 +11,9 @@ class LoginSchema(BaseSchema):
     Parameters:
      - email (str)
      - password (str)
-     - remember_me (bool)
     """
     email = fields.Str(required=True)
     password = fields.Str(required=True)
-    remember_me = fields.Bool(
-        truthy=['true'],
-        falsy=['false'],
-        required=False,
-        default=False
-    )
 
 
 class RegisterSchema(BaseSchema):

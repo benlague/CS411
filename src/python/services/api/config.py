@@ -7,7 +7,7 @@ class Config:
     DEBUG = False
     TESTING = False
     SECRET_KEY = os.environ.get('SECRET_KEY', '123')
-
+    JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY', '123')
     # Yelp secret
     YELP_API_KEY = os.environ.get('YELP_API_KEY')
 
