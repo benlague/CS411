@@ -1,3 +1,5 @@
+from flask_login import login_required
+
 from ..libs.yelpSearch import yelp_search
 from .common.base import BaseResource
 from ..schemas.yelp import YelpApiGetSchema
@@ -6,7 +8,9 @@ from flask import request
 
 
 class YelpAPI(BaseResource):
-method_decorators = [login_required]
+    # Make sure api is login protected
+    method_decorators = [login_required]
+
     def get(self):
         # validate the requests parameters using schema
         params = self.validate_request(schema=YelpApiGetSchema, kwargs=request.values)  # noqa: E501
