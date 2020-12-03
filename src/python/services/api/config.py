@@ -8,6 +8,9 @@ class Config:
     TESTING = False
     SECRET_KEY = os.environ.get('SECRET_KEY', '123')
 
+    # Yelp secret
+    YELP_API_KEY = os.environ.get('YELP_API_KEY')
+
 
 class DevelopmentConfig(Config):
     DEBUG = True
