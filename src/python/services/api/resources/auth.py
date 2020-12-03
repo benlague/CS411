@@ -1,7 +1,12 @@
 from flask.helpers import make_response
 from .common.base import BaseResource
 from ..libs.audit import log_event
-from ..libs.auth import oauth
+from ..libs.auth import (
+    oauth,
+    login_required,
+    get_current_user,
+    create_jwt_access_token
+)
 from ..libs.respository import create_repo
 from ..models.models import User
 from ..schemas.auth import (
@@ -13,7 +18,6 @@ from ..schemas.auth import (
 
 from flask import request, jsonify
 from flask_restful import abort, url_for
-from flask_login import login_user, logout_user, login_required, current_user
 
 
 class LoginAPI(BaseResource):
@@ -24,7 +28,6 @@ class LoginAPI(BaseResource):
         params = self.validate_request(schema=LoginSchema, kwargs=request.form)  # noqa: E501
         email = params.get('email')
         password = params.get('password')
-        remember_me = params.get('remember_me')
 
         users = self.user_repo.find_by({'email': email})
 
@@ -32,14 +35,17 @@ class LoginAPI(BaseResource):
             abort(401, message=f'User with email {email} does not exist')
 
         user = users[0]
-        if user.check_password(password=password):
-            login_user(user, remember=remember_me)
-        else:
+        if not user.check_password(password=password):
             abort(401, message=f'Incorrect password for user with email {email}')  # noqa: E501
 
         log_event(actor=email, activity='login', target='account')
 
-        return 200
+        resp = {
+            'access_token': create_jwt_access_token(user=user),
+            'user': UserSchema().dump(user)
+        }
+
+        return resp, 200
 
 
 class RegisterAPI(BaseResource):
@@ -68,14 +74,6 @@ class RegisterAPI(BaseResource):
         return 201
 
 
-class LogoutAPI(BaseResource):
-
-    method_decorators = [login_required]
-
-    def get(self):
-        logout_user()
-
-
 class UserAPI(BaseResource):
 
     method_decorators = [login_required]
@@ -84,13 +82,15 @@ class UserAPI(BaseResource):
         self.user_repo = create_repo(User)
 
     def get(self):
-        user_data = UserSchema().dump(current_user)
+        user_data = UserSchema().dump(get_current_user())
         return make_response(jsonify(user_data), 200)
 
     def post(self):
         params = self.validate_request(schema=UserUpdateSchema, kwargs=request.form)  # noqa: E501
         first_name = params.get('first_name')
         last_name = params.get('last_name')
+
+        current_user = get_current_user()
 
         if first_name:
             current_user.first_name = first_name
@@ -102,9 +102,8 @@ class UserAPI(BaseResource):
         return 202
 
     def delete(self):
+        current_user = get_current_user()
         self.user_repo.delete(current_user, commit=True)
-        logout_user()
-
         return 204
 
 
@@ -144,7 +143,14 @@ class GithubOAuthAuthorizeAPI(BaseResource):
             )
             self.user_repo.save(user, commit=True)
 
-        login_user(user)
+        log_event(actor=email, activity='oauth login', target='account')
+
+        resp = {
+            'access_token': create_jwt_access_token(user=user),
+            'user': UserSchema().dump(user)
+        }
+
+        return resp, 200
 
     @staticmethod
     def find_primary_email(emails):
