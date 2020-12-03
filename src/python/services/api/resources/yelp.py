@@ -15,14 +15,8 @@ class YelpAPI(BaseResource):
         name = params.get("name")
         location = params.get("location")
 
-        # Optional: radius
-        # radius = request.args.get("radius")
-
         # Search via yelp_search method
         token = yelp_search(name, location)
-
-        # Print the returned token for debug use
-        # print(token)
 
         # Return result to front end
         return token
