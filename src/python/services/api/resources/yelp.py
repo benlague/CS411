@@ -22,8 +22,7 @@ class YelpAPI(BaseResource):
         token = yelpSearch.yelp_search(name, location)
 
         # Print the returned token for debug use
-        # TODO: remove when final integration
-        print(token)
+        # print(token)
 
         # Return result to front end
         return token
