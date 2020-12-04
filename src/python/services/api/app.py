@@ -10,7 +10,8 @@ from .resources import (
     UserAPI,
     GithubOAuthLoginAPI,
     GithubOAuthAuthorizeAPI,
-    YelpAPI
+    YelpAPI,
+    BestTimeAPI
 )
 
 from flask import Flask
@@ -49,3 +50,4 @@ api.add_resource(UserAPI, "/auth/user")
 api.add_resource(GithubOAuthLoginAPI, '/auth/oauth/github')
 api.add_resource(GithubOAuthAuthorizeAPI, '/auth/oauth/github/authorize')
 api.add_resource(YelpAPI, '/yelp')
+api.add_resource(BestTimeAPI, '/besttime')
