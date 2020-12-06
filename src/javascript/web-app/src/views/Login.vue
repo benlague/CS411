@@ -26,9 +26,7 @@
 
       <v-checkbox
         v-model="remember_me"
-        :rules="rememberRules"
         label="Do you want us to remember you?"
-        required
       ></v-checkbox>
 
       <v-btn
