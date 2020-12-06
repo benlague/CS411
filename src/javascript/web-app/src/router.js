@@ -25,6 +25,11 @@ const router = new Router({
             path: "/dashboard", 
             name: "Dashboard", 
             component: () => import("./views/Dashboard.vue") 
+        },
+        {
+            path: "/datadisplay",
+            name: "Data Display",
+            component: () => import("./views/DataDisplay.vue")
         }
     ]
 })
