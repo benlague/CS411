@@ -13,3 +13,7 @@ export function deleteJWT() {
 }
 
 
+
+export function tokenExists() {
+    return getJWT() ? true : false 
+}

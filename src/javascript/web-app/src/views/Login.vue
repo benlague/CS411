@@ -66,7 +66,8 @@ export default {
     login() {
       api.login(this.email, this.password, this.remember_me).then(resp => {
         console.log(resp); 
-        console.log("successfully logged in!")
+        console.log("successfully logged in!"); 
+        this.$router.push("/dashboard");
       }).catch(err => {
         console.log(err); 
       })

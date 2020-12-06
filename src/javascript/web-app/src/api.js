@@ -1,4 +1,6 @@
 import axios from 'axios'
+import store from "./store"; 
+import {storeJWT} from "./authentication"
 
 const defaultRequestConfig = {
     headers: {
@@ -20,8 +22,10 @@ const api = {
     login(email, password, remember_me) {
         return new Promise((resolve, reject) => {
                 const payload = urlEncode({ email, password, remember_me})
-                axios.post("/api/auth/login", payload, defaultRequestConfig).then(() => {
-                    // handle succesful login 
+                axios.post("/api/auth/login", payload, defaultRequestConfig).then(response => {
+                    // handle successful login 
+                    store.commit("setLoggedInTrue"); 
+                    storeJWT(response.data["access_token"]); 
                     resolve("Successfully logged in!")
                 }).catch(err => {
                     // handle error, add a snackbar? 

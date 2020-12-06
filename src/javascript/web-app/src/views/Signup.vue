@@ -83,6 +83,7 @@ export default {
     signup(){
       api.signup(this.first_name, this.last_name, this.email, this.password).then(() => {
         console.log("sucessfully signed up"); 
+        this.$router.push("/login");
       }).catch(err => { 
         console.log(err); 
       })
