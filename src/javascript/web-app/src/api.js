@@ -1,6 +1,7 @@
 import axios from 'axios'
 import store from "./store"; 
 import {storeJWT} from "./authentication"
+import notify from "./utilities/notify"; 
 
 const defaultRequestConfig = {
     headers: {
@@ -26,10 +27,12 @@ const api = {
                     // handle successful login 
                     store.commit("setLoggedInTrue"); 
                     storeJWT(response.data["access_token"]); 
-                    resolve("Successfully logged in!")
+                    notify("Successfully logged in!", "green"); 
+                    resolve(); 
                 }).catch(err => {
                     // handle error, add a snackbar? 
-                    reject(err.response.data.message); 
+                    notify(err.response.data.message, "red")
+                    reject(); 
                 })
         })
     }, 
@@ -37,10 +40,11 @@ const api = {
         return new Promise((resolve, reject) => {
             const payload = urlEncode({ first_name, last_name, email, password })
             axios.post('/api/auth/register', payload).then(() => {
-                resolve("Succesfully signed up!")
-
+                notify("Successfully logged in!", "green"); 
+                resolve(); 
             }).catch(err => {
-                reject(err.response.data.message); 
+                notify(err.response.data.message, "red"); 
+                reject(); 
             })
         })
     },
