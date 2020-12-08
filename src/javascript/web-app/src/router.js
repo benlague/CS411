@@ -43,13 +43,13 @@ const verifyLoginAndRedirect = async (redirect, next) => {
     if (isLoggedIn == "unset") {
         // check for the jwt 
         if (!tokenExists()) {
-            store.commit("setLoggedInFalse"); 
+            store.commit("setLoggedIn", false); 
             // if jwt doesn't exist, send user back to login screen
             redirect()
         }
         else {
             // add a route to server to check if the JWT is actually valid 
-            store.commit("setLoggedInTrue");
+            store.commit("setLoggedIn", true);
             next();  
         }
 

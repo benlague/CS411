@@ -14,12 +14,9 @@ const store = new Vuex.Store({
           }
     }, 
     mutations: {
-        setLoggedInTrue(state) {
-            state.loggedIn = true; 
-        }, 
-        setLoggedInFalse(state) {
-            state.loggedIn = false; 
-        }, 
+        setLoggedIn(state, val) {
+            state.loggedIn = val; 
+        },  
         setSnackbar(state, snackbar) {
             state.snackbar.message = snackbar.message;
             state.snackbar.show = snackbar.show;

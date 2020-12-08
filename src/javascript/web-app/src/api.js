@@ -25,7 +25,7 @@ const api = {
                 const payload = urlEncode({ email, password, remember_me})
                 axios.post("/api/auth/login", payload, defaultRequestConfig).then(response => {
                     // handle successful login 
-                    store.commit("setLoggedInTrue"); 
+                    store.commit("setLoggedIn", true); 
                     storeJWT(response.data["access_token"]); 
                     notify("Successfully logged in!", "green"); 
                     resolve(); 
