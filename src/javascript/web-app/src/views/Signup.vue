@@ -82,9 +82,7 @@ export default {
   methods: {
     signup(){
       api.signup(this.first_name, this.last_name, this.email, this.password).then(() => {
-        console.log("sucessfully signed up"); 
-      }).catch(err => { 
-        console.log(err); 
+        this.$router.push("/login");
       })
     }
   }, 

@@ -26,9 +26,7 @@
 
       <v-checkbox
         v-model="remember_me"
-        :rules="rememberRules"
         label="Do you want us to remember you?"
-        required
       ></v-checkbox>
 
       <v-btn
@@ -64,11 +62,8 @@ export default {
   }), 
   methods: {
     login() {
-      api.login(this.email, this.password, this.remember_me).then(resp => {
-        console.log(resp); 
-        console.log("successfully logged in!")
-      }).catch(err => {
-        console.log(err); 
+      api.login(this.email, this.password, this.remember_me).then(() => {
+        this.$router.push("/dashboard");
       })
     }, 
   }
