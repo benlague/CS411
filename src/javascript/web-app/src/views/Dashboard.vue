@@ -55,7 +55,9 @@ export default {
           this.businesses = []; 
           this.loadingTable = true; 
           api.search(this.businessName, this.location).then(data => {
-            this.parseBusinessData(data); 
+            if (data) {
+                this.parseBusinessData(data); 
+            }
             this.loadingTable = false; 
           })
         }, 
