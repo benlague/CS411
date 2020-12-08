@@ -9,24 +9,21 @@
         >
           <v-text-field
             label="Business Name"
-            v-model="BusinessName"
+            v-model="businessName"
           ></v-text-field>
         </v-col>
-                <v-col
+        <v-col
           cols="12"
           sm="6"
           md="3"
         >
           <v-text-field
             label="Location"
-            v-model="Location"
+            v-model="location"
           ></v-text-field>
-        </v-col>
+      </v-col>
       </v-row>
-      <v-btn
-        color="primary"
-        elevation="2"
->  search   </v-btn>
+      <v-btn color="primary" elevation="2" @click="search">Search</v-btn>
     </v-container>
   </v-form>
 </template>
@@ -37,9 +34,14 @@
 import api from "../api.js"
 export default {
     name: "Dashboard",
-    data: () => ({Location:"", BusinessName:""}),
+    data: () => ({
+        location:"", 
+        businessName:""
+    }),
     methods: {
-        search(){api.search(this.BusinessName, this.Location)}
+        search(){
+          api.search(this.businessName, this.location)
+        }
     }
 }
 </script>
