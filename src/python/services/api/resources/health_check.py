@@ -1,5 +1,5 @@
 from .common.base import BaseResource
-from ..libs.health_checks import health_checks, HealthCheck
+from ..libs.health_checks import health_checks
 from ..schemas.health_check import HealthCheckGetSchema
 
 from flask import request, jsonify
@@ -18,7 +18,7 @@ class HealthCheckAPI(BaseResource):
             try:
                 health_check.run()
             except Exception as exc:
-                print(f"health check \"{health_check.name}\" failed\n with exception: {exc}")
+                print(f"health check \"{health_check.name}\" failed\n with exception: {exc}")  # noqa: E501
                 return 500
             print(f"health check \"{health_check.name}\" passed.")
 
