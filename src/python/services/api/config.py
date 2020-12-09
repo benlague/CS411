@@ -10,6 +10,7 @@ class Config:
     JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY', '123')
     # Yelp secret
     YELP_API_KEY = os.environ.get('YELP_API_KEY')
+    BESTTIME_API_KEY = os.environ.get('BESTTIME_API_KEY')
 
 
 class DevelopmentConfig(Config):
