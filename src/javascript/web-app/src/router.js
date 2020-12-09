@@ -33,6 +33,14 @@ const router = new Router({
             meta: {
                 requiresAuth: true
             }
+        },
+        {
+            path: "/datadisplay",
+            name: "Data Display",
+            component: () => import("./views/DataDisplay.vue"),
+            meta: {
+                requiresAuth: true
+            }
         }
     ]
 })
