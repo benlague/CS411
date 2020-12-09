@@ -32,6 +32,7 @@ run-server:
 	export ENVIRONMENT=${ENVIRONMENT}  && \
 	export FLASK_DEBUG=${FLASK_DEBUG} && \
 	export FLASK_APP="src/python/services/api/app:app" && \
+	. ./config.env && \
 	flask run -h 0.0.0.0 -p 8001
 
 run-client:

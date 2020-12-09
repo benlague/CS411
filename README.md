@@ -32,11 +32,27 @@ make install-deps
 make db-upgrade
 ```
 The above make goal will create all the tables defined in the `migrations/versions` folder.
-### 5. Run the backend API server
+### 5. Copy project configuration secrets to `config.env`
+Copy all the required configuration secrets into a file called `config.env` which needs to be created at the root of the project.
+
+The following configuration secrets are needed to run the project locally:
+- `YELP_API_KEY`
+- `BESTTIME_API_KEY`
+
+For each configuration secret add a new line to the `config.env` file using the following format:
+```bash
+export SECRET_NAME="SECRET_VALUE"
+```
+Your `config.env` file should now look something like:
+```bash
+export YELP_API_KEY="secret here"
+export BESTTIME_API_KEY="secret here"
+```
+### 6. Run the backend API server
 ```bash
 make run-server
 ```
-### 6. Run the frontend server
+### 7. Run the frontend server
 ```bash
 make run-client
 ```
