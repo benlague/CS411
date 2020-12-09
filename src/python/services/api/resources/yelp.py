@@ -1,5 +1,4 @@
-from flask_login import login_required
-
+from ..libs.auth import login_required
 from ..libs.yelpSearch import yelp_search
 from .common.base import BaseResource
 from ..schemas.yelp import YelpApiGetSchema

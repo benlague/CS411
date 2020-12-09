@@ -4,7 +4,7 @@ from marshmallow import fields
 
 
 class YelpApiGetSchema(BaseSchema):
-    """ /api/YelpApi - GET
+    """ /api/yelp - GET
 
     Parameters:
      - name (str)

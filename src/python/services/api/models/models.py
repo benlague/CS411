@@ -1,7 +1,6 @@
 from .common.db import db
 from .common.mixins import AuditMixin
 
-from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -14,7 +13,7 @@ class AuditEntry(db.Model, AuditMixin):
     target = db.Column(db.Text)
 
 
-class User(db.Model, AuditMixin, UserMixin):
+class User(db.Model, AuditMixin):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(20), nullable=False)

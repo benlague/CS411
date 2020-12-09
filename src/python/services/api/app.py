@@ -1,5 +1,6 @@
 from .config import get_config
 from .libs.auth import jwt, oauth, register_providers
+from .libs.cache import cache
 from .models import models  # noqa: F401
 from .models.common.db import db
 from .resources import (
@@ -40,6 +41,9 @@ jwt.init_app(app)
 # Initialize oauth extention
 oauth.init_app(app)
 register_providers()
+
+# Initialized redis cache extention
+cache.init_app(app)
 
 # Attach API resources to routes
 api.add_resource(AuditAPI, '/auditlog')

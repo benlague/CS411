@@ -17,7 +17,14 @@ class DevelopmentConfig(Config):
     DEBUG = True
     # Uncomment this line if youd like to use sqlite instead of postgres
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'database.db')  # noqa: E501
-    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://postgres:123@postgres:5432/test"  # noqa: E501
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        "SQLALCHEMY_DATABASE_URI",
+        "postgresql+psycopg2://postgres:123@postgres:5432/test"
+    )
+    CACHE_REDIS_URL = os.environ.get(
+        "CACHE_REDIS_URL",
+        "redis://:123@redis:6379/2"
+    )
 
 
 class TestingConfig(Config):
@@ -25,11 +32,25 @@ class TestingConfig(Config):
     TESTING = True
     # Uncomment this line if youd like to use sqlite instead of postgres
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'database.db')  # noqa: E501
-    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://postgres:123@postgres:5432/test"  # noqa: E501
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        "SQLALCHEMY_DATABASE_URI",
+        "postgresql+psycopg2://postgres:123@postgres:5432/test"
+    )
+    CACHE_REDIS_URL = os.environ.get(
+        "CACHE_REDIS_URL",
+        "redis://:123@redis:6379/2"
+    )
 
 
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://postgres:123@postgres:5432/test"  # noqa: E501
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        "SQLALCHEMY_DATABASE_URI",
+        "postgresql+psycopg2://postgres:123@postgres:5432/test"
+    )
+    CACHE_REDIS_URL = os.environ.get(
+        "CACHE_REDIS_URL",
+        "redis://:123@redis:6379/2"
+    )
 
 
 config_by_environment = dict(
