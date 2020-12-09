@@ -1,6 +1,7 @@
 import axios from 'axios'
 import store from "./store"; 
-import {storeJWT} from "./authentication"
+import router from "./router"; 
+import {storeJWT, getJWT, tokenExists, deleteJWT} from "./authentication"
 import notify from "./utilities/notify"; 
 
 const defaultRequestConfig = {
@@ -17,6 +18,20 @@ function urlEncode(data) {
         urlEncodedString += key + "=" + encodeURIComponent(data[key]) + "&";
     });
     return urlEncodedString.slice(0, -1); //remove the trailing '&'
+}
+
+function logoutHelper(unauthorized) {
+    deleteJWT()
+    store.commit("setLoggedIn", false); 
+    // conditional checks whether we are logging out because of lack of unauthorization, if so, redirect to login and show error message
+    if (unauthorized) {
+        notify("Please log in again!", "red"); 
+        router.push("/login"); 
+    }
+    else {
+        notify("Successfully logged out!", "green"); 
+        router.push("/"); 
+    }
 }
 
 const api = {
@@ -39,7 +54,7 @@ const api = {
     signup(first_name, last_name, email, password) {
         return new Promise((resolve, reject) => {
             const payload = urlEncode({ first_name, last_name, email, password })
-            axios.post('/api/auth/register', payload).then(() => {
+            axios.post('/api/auth/register', payload, defaultRequestConfig).then(() => {
                 notify("Successfully logged in!", "green"); 
                 resolve(); 
             }).catch(err => {
@@ -50,11 +65,22 @@ const api = {
     },
     search(name, location) {
         return new Promise((resolve, reject) => {
-            axios.get("/api/yelp", {params: {name,location}}, defaultRequestConfig).then(() => {
-                resolve()
-        }).catch(err => {
-            reject(err); 
-        })
+            // check if jwt exists 
+            if (tokenExists()) {
+                axios.get("/api/yelp", {params: {name,location}, headers: {"Authorization": "Bearer " + getJWT()}}).then(resp => {
+                    console.log(resp); 
+                    resolve(resp.data.businesses)
+                }).catch(err => {
+                    // check for unauthorized status code or signature validation failure 
+                    if (err.response.status == 401 || err.response.status == 422) {
+                        logoutHelper(true); 
+                    }
+                    reject(err); 
+                })
+            }
+            else {
+                logoutHelper(true); 
+            }
     })
     }
 }
