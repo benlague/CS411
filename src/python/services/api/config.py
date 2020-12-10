@@ -8,9 +8,11 @@ class Config:
     TESTING = False
     SECRET_KEY = os.environ.get('SECRET_KEY', '123')
     JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY', '123')
-    # Yelp secret
     YELP_API_KEY = os.environ.get('YELP_API_KEY')
     BESTTIME_API_KEY = os.environ.get('BESTTIME_API_KEY')
+    GITHUB_CLIENT_ID = os.environ.get('GITHUB_CLIENT_ID')
+    GITHUB_CLIENT_SECRET = os.environ.get('GITHUB_CLIENT_SECRET')
+
 
 
 class DevelopmentConfig(Config):
