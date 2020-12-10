@@ -33,6 +33,16 @@ export default {
     name: "DataDisplay",
     components: {
         BarChart
+    }, 
+    data: () => ({
+        name: "", 
+        location: ""
+    }), 
+    mounted() {
+        if (this.$route.params.name && this.$route.params.location) {
+            this.name = this.$route.params.name; 
+            this.location = this.$route.params.location; 
+        }
     }
 }
 </script>
