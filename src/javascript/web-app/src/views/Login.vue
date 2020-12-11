@@ -37,6 +37,13 @@
       >
         Login
       </v-btn>
+      <v-btn
+        color="success"
+        class="mr-4"
+        @click="oauth"
+      >
+        Sign in with Github
+      </v-btn>
     </v-form>
   </div>
 </template>
@@ -65,7 +72,10 @@ export default {
       api.login(this.email, this.password, this.remember_me).then(() => {
         this.$router.push("/dashboard");
       })
-    }, 
+    },
+    oauth() {
+      api.oauthGet()
+    } 
   }
 }
 </script>

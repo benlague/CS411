@@ -82,6 +82,14 @@ const api = {
                 logoutHelper(true); 
             }
     })
+    }, 
+    oauthGet(){
+        axios.get("api/auth/oauth/github").then(resp => {
+            console.log(resp); 
+        }).catch(err => {
+            // check for unauthorized status code or signature validation failure 
+            console.log(err)
+        })
     }
 }
 export default api; 
