@@ -14,7 +14,6 @@ class Config:
     GITHUB_CLIENT_SECRET = os.environ.get('GITHUB_CLIENT_SECRET')
 
 
-
 class DevelopmentConfig(Config):
     DEBUG = True
     # Uncomment this line if youd like to use sqlite instead of postgres
