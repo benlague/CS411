@@ -9,8 +9,9 @@ const defaultRequestConfig = {
       "content-type": "application/x-www-form-urlencoded",
     },
     withCredentials: true,
-    baseURL: 'http://localhost:8001'
-  };
+};
+
+const serverUrl = "http://localhost:8001"
 
 
 function urlEncode(data) {
@@ -39,7 +40,7 @@ const api = {
     login(email, password, remember_me) {
         return new Promise((resolve, reject) => {
                 const payload = urlEncode({ email, password, remember_me})
-                axios.post("/api/auth/login", payload, defaultRequestConfig).then(response => {
+                axios.post(`${serverUrl}/api/auth/login`, payload, defaultRequestConfig).then(response => {
                     // handle successful login 
                     store.commit("setLoggedIn", true); 
                     storeJWT(response.data["access_token"]); 
@@ -55,7 +56,7 @@ const api = {
     signup(first_name, last_name, email, password) {
         return new Promise((resolve, reject) => {
             const payload = urlEncode({ first_name, last_name, email, password })
-            axios.post('/api/auth/register', payload, defaultRequestConfig).then(() => {
+            axios.post(`${serverUrl}/api/auth/register`, payload, defaultRequestConfig).then(() => {
                 notify("Successfully logged in!", "green"); 
                 resolve(); 
             }).catch(err => {
@@ -68,7 +69,7 @@ const api = {
         return new Promise((resolve, reject) => {
             // check if jwt exists 
             if (tokenExists()) {
-                axios.get("/api/yelp", {params: {name,location}, headers: {"Authorization": "Bearer " + getJWT()}}).then(resp => {
+                axios.get(`${serverUrl}/api/yelp`, {params: {name,location}, headers: {"Authorization": "Bearer " + getJWT()}}).then(resp => {
                     console.log(resp); 
                     resolve(resp.data.businesses)
                 }).catch(err => {
@@ -85,7 +86,7 @@ const api = {
     })
     }, 
     oauthGet(){
-        window.location.href = "http://localhost:8001/api/auth/oauth/login"
+        window.location.href = `${serverUrl}/api/auth/oauth/login`
     }
 }
 export default api; 
