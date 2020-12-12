@@ -10,8 +10,9 @@ class Config:
     JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY', '123')
     YELP_API_KEY = os.environ.get('YELP_API_KEY')
     BESTTIME_API_KEY = os.environ.get('BESTTIME_API_KEY')
-    GITHUB_CLIENT_ID = os.environ.get('GITHUB_CLIENT_ID')
-    GITHUB_CLIENT_SECRET = os.environ.get('GITHUB_CLIENT_SECRET')
+    AUTH0_CLIENT_ID = os.environ.get('AUTH0_CLIENT_ID')
+    AUTH0_CLIENT_SECRET = os.environ.get('AUTH0_CLIENT_SECRET')
+    FRONTEND_URL = os.environ.get('FRONTEND_URL', 'http://localhost:8080')
 
 
 class DevelopmentConfig(Config):

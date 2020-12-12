@@ -9,8 +9,8 @@ from .resources import (
     LoginAPI,
     RegisterAPI,
     UserAPI,
-    GithubOAuthLoginAPI,
-    GithubOAuthAuthorizeAPI,
+    OAuthLoginAPI,
+    OAuthAuthorizeAPI,
     YelpAPI,
     BestTimeAPI
 )
@@ -18,6 +18,7 @@ from .resources import (
 from flask import Flask
 from flask_restful import Api
 from flask_migrate import Migrate as DBMigrate
+from flask_cors import CORS
 
 
 # Initialize flask application
@@ -45,13 +46,16 @@ register_providers()
 # Initialized redis cache extention
 cache.init_app(app)
 
+# Initialize Cors extention
+CORS(app)
+
 # Attach API resources to routes
 api.add_resource(AuditAPI, '/auditlog')
 api.add_resource(HealthCheckAPI, '/healthcheck')
 api.add_resource(LoginAPI, '/auth/login')
 api.add_resource(RegisterAPI, '/auth/register')
 api.add_resource(UserAPI, "/auth/user")
-api.add_resource(GithubOAuthLoginAPI, '/auth/oauth/github')
-api.add_resource(GithubOAuthAuthorizeAPI, '/auth/oauth/github/authorize')
+api.add_resource(OAuthLoginAPI, '/auth/oauth/login')
+api.add_resource(OAuthAuthorizeAPI, '/auth/oauth/authorize')
 api.add_resource(YelpAPI, '/yelp')
 api.add_resource(BestTimeAPI, '/besttime')

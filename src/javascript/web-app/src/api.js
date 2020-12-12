@@ -8,7 +8,8 @@ const defaultRequestConfig = {
     headers: {
       "content-type": "application/x-www-form-urlencoded",
     },
-    withCredentials: true
+    withCredentials: true,
+    baseURL: 'http://localhost:8001'
   };
 
 
@@ -84,12 +85,7 @@ const api = {
     })
     }, 
     oauthGet(){
-        axios.get("api/auth/oauth/github").then(resp => {
-            console.log(resp); 
-        }).catch(err => {
-            // check for unauthorized status code or signature validation failure 
-            console.log(err)
-        })
+        window.location.href = "http://localhost:8001/api/auth/oauth/login"
     }
 }
 export default api; 

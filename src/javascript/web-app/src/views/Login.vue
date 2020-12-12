@@ -42,7 +42,7 @@
         class="mr-4"
         @click="oauth"
       >
-        Sign in with Github
+        Sign in with OAuth
       </v-btn>
     </v-form>
   </div>
