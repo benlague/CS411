@@ -50,3 +50,4 @@ class BestTimeForecastSchema(BaseSchema):
             int(day_forecast['day_info']["day_int"]) == today_day_int
         )
         return BestTimeDayAnalysisSchema().dump(today_forecast_data)
+    
