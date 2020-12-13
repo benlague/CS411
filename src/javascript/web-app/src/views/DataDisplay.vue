@@ -1,5 +1,7 @@
 <template>
-    <div>
+    <section> 
+        <LogoutNav />
+        <div>
         <v-card shaped elevation="2" class="mx-10 mt-10">
             <v-card-title>Busyness Forecast</v-card-title>
             <v-card-subtitle>Venue Name</v-card-subtitle>
@@ -24,15 +26,18 @@
             </v-col>
         </v-row>
     </div>
+    </section>
 </template>
 
 <script>
 import BarChart from "../components/BarChart"
+import LogoutNav from "../components/LogoutNav"
 
 export default {
     name: "DataDisplay",
     components: {
-        BarChart
+        BarChart, 
+        LogoutNav
     }, 
     data: () => ({
         name: "", 

@@ -87,6 +87,9 @@ const api = {
     }, 
     oauthGet(){
         window.location.href = `${serverUrl}/api/auth/oauth/login`
+    }, 
+    logout(){
+        logoutHelper(false); 
     }
 }
 export default api; 

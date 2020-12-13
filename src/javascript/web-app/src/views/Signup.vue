@@ -53,6 +53,7 @@
       >
         Signup
       </v-btn>
+      <a class = "mr-4" href="/login">Already have an account?</a>
 
     </v-form>
   </div>
