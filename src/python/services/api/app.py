@@ -47,7 +47,7 @@ register_providers()
 cache.init_app(app)
 
 # Initialize Cors extention
-CORS(app)
+CORS(app, supports_credentials=True)
 
 # Attach API resources to routes
 api.add_resource(AuditAPI, '/auditlog')
