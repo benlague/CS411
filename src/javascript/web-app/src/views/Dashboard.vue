@@ -1,5 +1,6 @@
 <template>
 <section>
+  <LogoutNav />
   <div class = "title">
       <h1>Search for Business</h1>
   </div>
@@ -37,10 +38,13 @@
 <script>
 import api from "../api.js"; 
 import BusinessTable from "../components/BusinessTable"
+import LogoutNav from "../components/LogoutNav"
 export default {
     name: "Dashboard",
     components: {
-      BusinessTable
+      BusinessTable, 
+      LogoutNav
+
   },
     data: () => ({
         location:"", 
