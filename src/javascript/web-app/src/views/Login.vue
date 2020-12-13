@@ -28,7 +28,6 @@
         v-model="remember_me"
         label="Do you want us to remember you?"
       ></v-checkbox>
-
       <v-btn
         color="success"
         class="mr-4"
@@ -44,6 +43,7 @@
       >
         Sign in with OAuth
       </v-btn>
+      <a class = "mr-4" href="/signup">Don't have an account?</a>
     </v-form>
   </div>
 </template>
