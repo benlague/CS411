@@ -41,6 +41,11 @@ const router = new Router({
             meta: {
                 requiresAuth: true
             }
+        },
+        {
+            path: "/oauth",
+            name: "OAuth Landing",
+            component: () => import("./views/OAuthHandler.vue")
         }
     ]
 })
