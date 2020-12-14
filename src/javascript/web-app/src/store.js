@@ -4,15 +4,21 @@ import Vuex from "vuex"
 Vue.use(Vuex);
 
 
+const initialState = {
+    loggedIn: "unset", 
+    snackbar: {
+        message: "",
+        show: false,
+        color: "",
+      }, 
+      businesses: [], 
+      headers: [], 
+      businessName: "", 
+      location: ""
+}
+
 const store = new Vuex.Store({
-    state: {
-        loggedIn: "unset", 
-        snackbar: {
-            message: "",
-            show: false,
-            color: "",
-          }
-    }, 
+    state: initialState, 
     mutations: {
         setLoggedIn(state, val) {
             state.loggedIn = val; 
@@ -21,7 +27,26 @@ const store = new Vuex.Store({
             state.snackbar.message = snackbar.message;
             state.snackbar.show = snackbar.show;
             state.snackbar.color = snackbar.color;
-          }
+          }, 
+        setBusinesses(state, businesses) {
+            state.businesses = businesses
+        }, 
+        setHeaders(state, headers) {
+            state.headers = headers; 
+        }, 
+        setBusinessName(state, name) {
+            state.businessName = name; 
+        }, 
+        setLocation(state, location) {
+            state.location = location; 
+        }, 
+        clearSearches(state) {
+            state.businesses = [], 
+            state.headers = [], 
+            state.businessName = "", 
+            state.location = ""
+        }
+
     }, 
     getters: {
         isLoggedIn: (state) => {

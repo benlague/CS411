@@ -25,6 +25,7 @@ function urlEncode(data) {
 function logoutHelper(unauthorized) {
     deleteJWT()
     store.commit("setLoggedIn", false); 
+    store.commit("clearSearches")
     // conditional checks whether we are logging out because of lack of unauthorization, if so, redirect to login and show error message
     if (unauthorized) {
         notify("Please log in again!", "red"); 
