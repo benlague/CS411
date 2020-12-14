@@ -1,6 +1,6 @@
 <template>
 <section>
-  <LogoutNav />
+  <LogoutNav :showBackArrow="false"/>
   <div class = "title">
       <h1>Search for Business</h1>
   </div>
@@ -9,25 +9,27 @@
       <v-row>
         <v-col>
           <v-text-field
-            label="Business Name"
-            v-model="businessName"
+            label="Business Keyword(s)"
+            v-model="setKeyword"
           ></v-text-field>
         </v-col>
         <v-col>
           <v-text-field
             label="Location"
-            v-model="location"
+            v-model="setLocation"
           ></v-text-field>
       </v-col>
+        <v-btn fab small v-if="setKeyword != '' || setLocation != ''" class = "mt-5" @click="resetSearchQuery">
+          <v-icon>mdi-minus-circle-outline</v-icon>
+        </v-btn>
       </v-row>
       <v-btn color="primary" elevation="2" @click="search">Search</v-btn>
     </v-container>
   </v-form>
   <div>
     <BusinessTable
-      :headers="headers"
-      :data="businesses"
-      :isLoading="loadingTable"
+      :headers="this.headers"
+      :data="this.businesses"
     />
   </div>
 </section>
@@ -37,8 +39,10 @@
 
 <script>
 import api from "../api.js"; 
-import BusinessTable from "../components/BusinessTable"
-import LogoutNav from "../components/LogoutNav"
+import { mapState } from "vuex";
+import BusinessTable from "../components/BusinessTable";
+import LogoutNav from "../components/LogoutNav";
+
 export default {
     name: "Dashboard",
     components: {
@@ -46,31 +50,24 @@ export default {
       LogoutNav
 
   },
-    data: () => ({
-        location:"", 
-        businessName:"", 
-        headers: [], 
-        businesses: [], 
-        loadingTable: false 
-
-    }),
     methods: {
         search(){
-          this.businesses = []; 
-          this.loadingTable = true; 
-          api.search(this.businessName, this.location).then(data => {
+          this.$store.commit("setLoadingTable", true)  
+          api.search(this.setKeyword, this.setLocation).then(data => {
             if (data) {
                 this.parseBusinessData(data); 
             }
-            this.loadingTable = false; 
+          this.$store.commit("setLoadingTable", false)  
           })
         }, 
         parseBusinessData(data) {
+          let parsingBusinesses = []
           // set the headers that we want to display
-          this.headers = [{text: "name", value: "name"}, {text: "location", value: "location"}, {text: "Phone Number", value: "phoneNumber"}, {text: "price", value: "price"}, {text: "rating", value: "rating"}]
+          this.$store.commit("setHeaders", [{text: "name", value: "name"}, {text: "location", value: "location"}, {text: "Phone Number", value: "phoneNumber"}, {text: "price", value: "price"}, {text: "rating", value: "rating"}])
+          
           // parse through response data and add to our component
           for (let i = 0; i < data.length; i ++) {
-            this.businesses.push({
+            parsingBusinesses.push({
               "name": data[i]["name"], 
               "location": data[i]["location"]["display_address"][0] + " " + data[i]["location"]["display_address"][1], 
               "phoneNumber": data[i]["display_phone"], 
@@ -78,8 +75,32 @@ export default {
               "rating": data[i]["rating"]
             })
           }
+          this.$store.commit("setBusinesses", parsingBusinesses); 
+        }, 
+        resetSearchQuery() {
+          this.$store.commit("clearSearches"); 
         }
+    },
+    computed: {
+    ...mapState(["businesses", "headers", "businessName", "location"]), 
+    setKeyword: {
+      set(val) {
+        this.$store.commit("setBusinessName", val)
+      }, 
+      get(){
+        return this.businessName
+      }
     }, 
+    setLocation: {
+      set(val) {
+        this.$store.commit("setLocation", val)
+      }, 
+      get() {
+        return this.location
+      }
+    }
+  }
+
 }
 </script>
 

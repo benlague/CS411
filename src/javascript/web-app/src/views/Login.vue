@@ -24,10 +24,6 @@
         @click:append="passwordVisible = !passwordVisible"
       ></v-text-field>
 
-      <v-checkbox
-        v-model="remember_me"
-        label="Do you want us to remember you?"
-      ></v-checkbox>
       <v-btn
         color="success"
         class="mr-4"
@@ -56,16 +52,12 @@ export default {
     valid: true, 
     email: "", 
     password: "", 
-    remember_me: false,
     passwordVisible: false,
     emailRules: [
       v => !!v || "E-mail is required",
       v => /.+@.+/.test(v) || "E-mail must be valid"
       ], 
     passwordRules: [v => !!v || "Password is required"],
-    rememberRules: [v => !!v || 'You must agree to continue!']
-
-
   }), 
   methods: {
     login() {
