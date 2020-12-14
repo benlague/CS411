@@ -18,11 +18,13 @@ user_repo = create_repo(User)
 
 def register_providers():
     oauth.register(
-        name='github',
-        access_token_url='https://github.com/login/oauth/access_token',
-        authorize_url='https://github.com/login/oauth/authorize',
-        api_base_url='https://api.github.com/',
-        client_kwargs={'scope': 'read:user user:email'},
+        name='auth0',
+        api_base_url='https://dev-8m4p1t3y.auth0.com',
+        access_token_url='https://dev-8m4p1t3y.auth0.com/oauth/token',
+        authorize_url='https://dev-8m4p1t3y.auth0.com/authorize',
+        client_kwargs={
+            'scope': 'openid profile email',
+        }
     )
 
 
