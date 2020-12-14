@@ -16,8 +16,10 @@ from ..schemas.auth import (
     UserUpdateSchema
 )
 
-from flask import request, jsonify
+from flask import request, jsonify, redirect, current_app
 from flask_restful import abort, url_for
+
+from urllib.parse import urlencode
 
 
 class LoginAPI(BaseResource):
@@ -107,53 +109,39 @@ class UserAPI(BaseResource):
         return 204
 
 
-class GithubOAuthLoginAPI(BaseResource):
+class OAuthLoginAPI(BaseResource):
 
     def get(self):
-        authorize_endpoint = url_for('githuboauthauthorizeapi', _external=True)
-        return oauth.github.authorize_redirect(authorize_endpoint)
+        authorize_endpoint = url_for('oauthauthorizeapi', _external=True)
+        return oauth.auth0.authorize_redirect(authorize_endpoint)
 
 
-class GithubOAuthAuthorizeAPI(BaseResource):
+class OAuthAuthorizeAPI(BaseResource):
     def __init__(self):
         self.user_repo = create_repo(User)
 
     def get(self):
-        oauth.github.authorize_access_token()
+        oauth.auth0.authorize_access_token()
 
-        # Get github user first and last name
-        profile = oauth.github.get('user').json()
-        first_name, last_name = profile['name'].split()
+        resp = oauth.auth0.get('userinfo')
+        userinfo = resp.json()
 
-        # Get unique github user id
-        user_id = profile['id']
-
-        # Get github user primary email
-        emails = oauth.github.get('user/emails').json()
-        email = self.find_primary_email(emails=emails)
+        first_name, last_name = userinfo['name'].split()
+        email = userinfo['email']
 
         # Create user in database if doesnt exist
-        user = self.user_repo.get(user_id)
-        if user is None:
+        users = self.user_repo.find_by(prop_dict={'email': email})
+        if len(users) == 0:
             user = User(
-                id=user_id,
                 email=email,
                 first_name=first_name,
                 last_name=last_name
             )
             self.user_repo.save(user, commit=True)
+        else:
+            user = users[0]
 
         log_event(actor=email, activity='oauth login', target='account')
 
-        resp = {
-            'access_token': create_jwt_access_token(user=user),
-            'user': UserSchema().dump(user)
-        }
-
-        return resp, 200
-
-    @staticmethod
-    def find_primary_email(emails):
-        for user_email in emails:
-            if user_email['primary'] == "True":
-                return user_email['email']
+        return_to = f"{current_app.config['FRONTEND_URL']}/oauth?{urlencode({'access_token': create_jwt_access_token(user=user)})}"  # noqa: E501
+        return redirect(return_to)

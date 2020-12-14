@@ -38,8 +38,8 @@ Copy all the required configuration secrets into a file called `config.env` whic
 The following configuration secrets are needed to run the project locally:
 - `YELP_API_KEY`
 - `BESTTIME_API_KEY`
-- `GITHUB_CLIENT_ID`
-- `GITHUB_CLIENT_SECRET`
+- `AUTH0_CLIENT_ID`
+- `AUTH0_CLIENT_SECRET`
 
 For each configuration secret add a new line to the `config.env` file using the following format:
 ```bash

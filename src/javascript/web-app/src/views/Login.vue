@@ -28,7 +28,6 @@
         v-model="remember_me"
         label="Do you want us to remember you?"
       ></v-checkbox>
-
       <v-btn
         color="success"
         class="mr-4"
@@ -37,6 +36,14 @@
       >
         Login
       </v-btn>
+      <v-btn
+        color="success"
+        class="mr-4"
+        @click="oauth"
+      >
+        Sign in with OAuth
+      </v-btn>
+      <a class = "mr-4" href="/signup">Don't have an account?</a>
     </v-form>
   </div>
 </template>
@@ -65,7 +72,10 @@ export default {
       api.login(this.email, this.password, this.remember_me).then(() => {
         this.$router.push("/dashboard");
       })
-    }, 
+    },
+    oauth() {
+      api.oauthGet()
+    } 
   }
 }
 </script>
