@@ -19,6 +19,9 @@
             v-model="setLocation"
           ></v-text-field>
       </v-col>
+        <v-btn fab small v-if="setKeyword != '' || setLocation != ''" class = "mt-5" @click="resetSearchQuery">
+          <v-icon>mdi-minus-circle-outline</v-icon>
+        </v-btn>
       </v-row>
       <v-btn color="primary" elevation="2" @click="search">Search</v-btn>
     </v-container>
@@ -73,6 +76,9 @@ export default {
             })
           }
           this.$store.commit("setBusinesses", parsingBusinesses); 
+        }, 
+        resetSearchQuery() {
+          this.$store.commit("clearSearches"); 
         }
     },
     computed: {
