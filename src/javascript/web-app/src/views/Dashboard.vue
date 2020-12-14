@@ -9,7 +9,7 @@
       <v-row>
         <v-col>
           <v-text-field
-            label="Business Name"
+            label="Business Keyword(s)"
             v-model="businessName"
           ></v-text-field>
         </v-col>

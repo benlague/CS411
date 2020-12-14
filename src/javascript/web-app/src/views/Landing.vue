@@ -7,8 +7,8 @@
                     <v-btn text tile color="#000000" @click="login">Sign In</v-btn>
                     </v-toolbar-items>
                 </v-toolbar>
-                <div class = "title">
-                    <p>Title Here</p>
+                <div class = "title-container">
+                    <p class = "landing-title">SafeSpot</p>
                 </div>
         </div>
 </template>
@@ -36,7 +36,10 @@ export default {
         margin:0;
         padding:0;
     }
-    .title {
-          margin: 0 auto;
+    .title-container {
+        margin-left: 0.5%;
+    }
+    .landing-title {
+          font-size: 35px;
     }
 </style>
