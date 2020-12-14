@@ -89,7 +89,7 @@ const api = {
         return new Promise((resolve, reject) => {
             // check if jwt exists 
             if (tokenExists()) {
-                axios.get("/api/besttime", {params: {name,location}, headers: {"Authorization": "Bearer " + getJWT()}}).then(resp => {
+                axios.get(`${serverUrl}/api/besttime`, {params: {name,location}, headers: {"Authorization": "Bearer " + getJWT()}}).then(resp => {
                     console.log(resp); 
                     resolve(resp.data.today_forecast)
                 }).catch(err => {
@@ -104,6 +104,12 @@ const api = {
                 logoutHelper(true); 
             }
         })
-    },
+    }, 
+    oauthGet(){
+        window.location.href = `${serverUrl}/api/auth/oauth/login`
+    }, 
+    logout(){
+        logoutHelper(false); 
+    }
 }
 export default api; 
