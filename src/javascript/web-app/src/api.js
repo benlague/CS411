@@ -81,7 +81,7 @@ const api = {
             else {
                 logoutHelper(true); 
             }
-    })
+        })
     },
     forecast(name, location) {
         return new Promise((resolve, reject) => {
@@ -101,7 +101,7 @@ const api = {
             else {
                 logoutHelper(true); 
             }
-    })
-    }
+        })
+    },
 }
 export default api; 
