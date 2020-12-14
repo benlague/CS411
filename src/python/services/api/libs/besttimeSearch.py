@@ -30,7 +30,9 @@ class BestTimeClient:
         response = requests.post(self.NEW_FORECAST_ENDPOINT, params=params)
 
         if response.status_code != 200:
-            raise BestTimeClientException(f'Besttime API request failed: {response}')
+            raise BestTimeClientException(
+                f'Besttime API request failed: {response}'
+            )
 
         data = json.loads(response.text)
 

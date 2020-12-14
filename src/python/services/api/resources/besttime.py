@@ -21,7 +21,7 @@ class BestTimeAPI(BaseResource):
         # Request @name and @location from front end
         venue_name = params.get("name")
         venue_address = params.get("location")
-        
+
         # Get besttime data
         try:
             venue_forecast = self.besttime_client.get_forecast(
