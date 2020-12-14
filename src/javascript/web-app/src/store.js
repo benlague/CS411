@@ -14,7 +14,8 @@ const initialState = {
       businesses: [], 
       headers: [], 
       businessName: "", 
-      location: ""
+      location: "", 
+      loadingTable: false 
 }
 
 const store = new Vuex.Store({
@@ -44,7 +45,11 @@ const store = new Vuex.Store({
             state.businesses = [], 
             state.headers = [], 
             state.businessName = "", 
-            state.location = ""
+            state.location = "", 
+            state.loadingTable = false 
+        }, 
+        setLoadingTable(state, val) {
+            state.loadingTable = val;
         }
 
     }, 

@@ -27,7 +27,6 @@
     <BusinessTable
       :headers="this.headers"
       :data="this.businesses"
-      :isLoading="loadingTable"
     />
   </div>
 </section>
@@ -48,18 +47,14 @@ export default {
       LogoutNav
 
   },
-    data: () => ({
-        loadingTable: false 
-
-    }),
     methods: {
         search(){
-          this.loadingTable = true; 
+          this.$store.commit("setLoadingTable", true)  
           api.search(this.setKeyword, this.setLocation).then(data => {
             if (data) {
                 this.parseBusinessData(data); 
             }
-            this.loadingTable = false; 
+          this.$store.commit("setLoadingTable", false)  
           })
         }, 
         parseBusinessData(data) {
