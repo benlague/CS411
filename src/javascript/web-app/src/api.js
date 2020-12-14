@@ -84,7 +84,27 @@ const api = {
             else {
                 logoutHelper(true); 
             }
-    })
+        })
+    },
+    forecast(name, location) {
+        return new Promise((resolve, reject) => {
+            // check if jwt exists 
+            if (tokenExists()) {
+                axios.get(`${serverUrl}/api/besttime`, {params: {name,location}, headers: {"Authorization": "Bearer " + getJWT()}}).then(resp => {
+                    console.log(resp); 
+                    resolve(resp.data.today_forecast)
+                }).catch(err => {
+                    // check for unauthorized status code or signature validation failure 
+                    if (err.response.status == 401 || err.response.status == 422) {
+                        logoutHelper(true); 
+                    }
+                    reject(err); 
+                })
+            }
+            else {
+                logoutHelper(true); 
+            }
+        })
     }, 
     oauthGet(){
         window.location.href = `${serverUrl}/api/auth/oauth/login`
