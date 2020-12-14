@@ -7,6 +7,10 @@ import requests
 from flask import current_app
 
 
+class BestTimeClientException(Exception):
+    """Base exception for best time api client."""
+
+
 class BestTimeClient:
 
     NEW_FORECAST_ENDPOINT = "https://besttime.app/api/v1/forecasts"
@@ -24,6 +28,9 @@ class BestTimeClient:
         }
 
         response = requests.post(self.NEW_FORECAST_ENDPOINT, params=params)
+
+        if response.status_code != 200:
+            raise BestTimeClientException(f'Besttime API request failed: {response}')
 
         data = json.loads(response.text)
 

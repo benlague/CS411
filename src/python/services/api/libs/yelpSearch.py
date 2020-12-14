@@ -3,6 +3,10 @@ import requests
 from flask import current_app
 
 
+class YelpException(Exception):
+    """Base exception for yelp api client."""
+
+
 # Send request to yelp API and return businesses result in an object
 # Location default to Boston
 # Return format see:
@@ -21,6 +25,9 @@ def yelp_search(name, location="Boston"):
 
     # Request from Yelp Api, /businesses/search
     respond = requests.get(url, params=payload, headers=headers)
+
+    if respond.status_code != 200:
+        raise YelpException(f'Yelp api request failed: {respond}')
 
     # Decode json file
     ret = json.loads(respond.text)
