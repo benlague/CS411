@@ -1,9 +1,10 @@
 from ..libs.auth import login_required
-from ..libs.yelpSearch import yelp_search
+from ..libs.yelpSearch import yelp_search, YelpException
 from .common.base import BaseResource
 from ..schemas.yelp import YelpApiGetSchema
 
 from flask import request
+from flask_restful import abort
 
 
 class YelpAPI(BaseResource):
@@ -19,7 +20,10 @@ class YelpAPI(BaseResource):
         location = params.get("location")
 
         # Search via yelp_search method
-        token = yelp_search(name, location)
+        try:
+            yelp_data = yelp_search(name, location)
+        except YelpException as exc:
+            return abort(503, message=exc)
 
         # Return result to front end
-        return token
+        return yelp_data
