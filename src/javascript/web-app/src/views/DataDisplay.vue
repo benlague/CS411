@@ -1,6 +1,6 @@
 <template>
     <section> 
-        <LogoutNav />
+        <LogoutNav :showBackArrow="true" />
         <div>
         <v-card shaped elevation="2" class="mx-10 mt-10">
             <v-card-title>Busyness Forecast</v-card-title>

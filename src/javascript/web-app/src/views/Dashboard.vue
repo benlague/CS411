@@ -1,6 +1,6 @@
 <template>
 <section>
-  <LogoutNav />
+  <LogoutNav :showBackArrow="false"/>
   <div class = "title">
       <h1>Search for Business</h1>
   </div>
