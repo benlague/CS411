@@ -49,8 +49,8 @@ Your `config.env` file should now look something like:
 ```bash
 export YELP_API_KEY="secret here"
 export BESTTIME_API_KEY="secret here"
-export GITHUB_CLIENT_ID="secret here"
-export GITHUB_CLIENT_SECRET="secret here"
+export AUTH0_CLIENT_ID="secret here"
+export AUTH0_CLIENT_SECRET="secret here"
 ```
 ### 6. Run the backend API server
 ```bash
