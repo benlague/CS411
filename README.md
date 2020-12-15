@@ -1,4 +1,4 @@
-# CS411
+# CS411 (Team number 12)
 ## Project setup
 ### 1. Clone repository
 ```bash
